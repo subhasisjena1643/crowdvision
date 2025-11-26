@@ -1,0 +1,1 @@
+"""Crowd sentiment analysis module"""

@@ -1,0 +1,99 @@
+# CrowdVision Configuration
+
+# Model Configuration
+models:
+  detection:
+    type: yolov8
+    weights: models/yolov8n.pt
+    confidence_threshold: 0.5
+    device: cuda
+  
+  density:
+    type: csrnet
+    weights: models/csrnet_density.pth
+    input_size: [512, 512]
+    device: cuda
+  
+  forecasting:
+    type: gcn_gru
+    weights: models/gcn_gru.pth
+    sequence_length: 20
+    forecast_horizon: 40
+    device: cuda
+  
+  anomaly:
+    type: multistream_cnn
+    weights: models/anomaly_detector.pth
+    device: cuda
+  
+  reid:
+    type: resnet50_triplet
+    weights: models/reid_resnet50.pth
+    embedding_dim: 512
+    device: cuda
+
+# Training Configuration
+training:
+  batch_size: 8
+  learning_rate: 0.0001
+  epochs: 100
+  optimizer: adam
+  scheduler: step_lr
+  early_stopping_patience: 10
+  
+  density:
+    dataset: shanghaitech_partA
+    loss: euclidean
+    augmentation: true
+  
+  forecasting:
+    dataset: historical_crowd_flow
+    loss: mse
+    validation_split: 0.2
+  
+  reid:
+    dataset: market1501
+    loss: triplet
+    margin: 0.3
+    p_k_sampling: [16, 4]  # P identities, K images each
+
+# Inference Configuration
+inference:
+  batch_processing: true
+  max_batch_size: 16
+  timeout_seconds: 30
+  quantization: int8
+
+# Alert Configuration
+alerts:
+  density_threshold: 0.8
+  bottleneck_threshold: 0.8
+  anomaly_confidence_threshold: 0.7
+  sentiment_alert_levels:
+    agitated: yellow
+    panic: red
+
+# RAG Configuration
+rag:
+  vector_db: chromadb
+  embedding_model: all-MiniLM-L6-v2
+  llm_provider: openai  # or vllm
+  top_k_retrieval: 5
+  max_tokens: 500
+  temperature: 0.7
+
+# API Configuration
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 4
+  reload: false
+  log_level: info
+
+# Experiment Tracking
+experiment_tracking:
+  backend: mlflow  # or wandb
+  tracking_uri: http://localhost:5000
+  experiment_name: crowdvision
+  log_models: true
+  log_artifacts: true
