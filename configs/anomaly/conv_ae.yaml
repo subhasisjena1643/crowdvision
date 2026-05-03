@@ -1,0 +1,34 @@
+# Convolutional Autoencoder anomaly detection configuration
+model:
+  name: ConvAE
+  in_channels: 1     # grayscale UCSD frames
+  base_ch: 32
+
+data:
+  dataset: ucsd
+  ped: ped2          # 'ped1' or 'ped2'
+  data_root: ../data
+  img_size: [128, 192]
+  batch_size: 64
+  num_workers: 4
+
+training:
+  epochs: 100
+  patience: 20
+  lr: 1.0e-4
+  weight_decay: 1.0e-5
+  optimizer: adam
+  scheduler:
+    type: cosine
+    T_max: 100
+  loss: mse           # reconstruction loss
+
+evaluation:
+  metrics: [auc, eer, ap, f1]
+  primary_metric: auc
+  lower_is_better: false
+
+experiment:
+  name: conv_ae_ucsd_ped2
+  save_dir: ../checkpoints
+  log_dir: ../runs

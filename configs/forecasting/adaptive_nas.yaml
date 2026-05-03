@@ -1,0 +1,44 @@
+# AdaptiveNAS-GNN configuration (our novel NAS model)
+model:
+  name: AdaptiveNASGNN
+  num_nodes: 207
+  in_features: 2
+  hidden_dim: 64
+  num_blocks: 3
+  seq_in: 12
+  seq_out: 12
+
+data:
+  dataset: metr_la
+  data_root: ../data
+  seq_in: 12
+  seq_out: 12
+  train_ratio: 0.7
+  val_ratio: 0.1
+  batch_size: 64
+  num_workers: 4
+
+training:
+  # Phase 1: Architecture search (bilevel optimisation)
+  search:
+    epochs: 50
+    model_lr: 3.0e-4
+    arch_lr: 3.0e-4
+    weight_decay: 1.0e-3
+  # Phase 2: Retrain with discretised architecture
+  retrain:
+    epochs: 200
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    scheduler:
+      type: cosine
+      T_max: 200
+
+evaluation:
+  horizons: [3, 6, 12]
+  primary_metric: overall_mae
+
+experiment:
+  name: adaptive_nas_gnn_metr_la
+  save_dir: ../checkpoints
+  log_dir: ../runs

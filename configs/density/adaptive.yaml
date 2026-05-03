@@ -1,0 +1,46 @@
+# AdaptiveCSRNet (our novel model) configuration
+model:
+  name: AdaptiveCSRNet
+  load_weights: true   # ImageNet VGG-16 backbone
+  return_features: false
+
+data:
+  datasets:            # train on both Part A and JHU
+    - shanghaitech_A
+    - jhu_crowd
+  data_root: ../data
+  target_size: [576, 768]
+  batch_size: 6
+  num_workers: 4
+
+training:
+  epochs: 300
+  patience: 40
+  lr: 5.0e-5
+  weight_decay: 1.0e-4
+  optimizer: adamw
+  scheduler:
+    type: cosine
+    T_max: 300
+    eta_min: 1.0e-7
+  loss:
+    type: combined
+    mse_weight: 1.0
+    ssim_weight: 0.5
+    tv_weight: 1.0e-4
+
+evaluation:
+  metrics: [mae, mse, psnr, ssim, game0, game1, game2, game3]
+  primary_metric: mae
+
+experiment:
+  name: adaptive_csrnet_sha_jhu
+  save_dir: ../checkpoints
+  log_dir: ../runs
+
+# What to ablate (for ablation study notebook)
+ablations:
+  - no_attention        # remove CBAM
+  - no_multiscale       # single dilation instead of ASPP
+  - no_ssim_loss        # MSE only
+  - single_dataset      # train on SHA only

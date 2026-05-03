@@ -1,0 +1,33 @@
+# CSRNet baseline configuration
+model:
+  name: CSRNet
+  load_weights: true
+
+data:
+  dataset: shanghaitech_A
+  data_root: ../data
+  target_size: [576, 768]   # [H, W]
+  batch_size: 8
+  num_workers: 4
+
+training:
+  epochs: 200
+  patience: 30
+  lr: 1.0e-5
+  weight_decay: 5.0e-4
+  optimizer: adam
+  scheduler:
+    type: reduce_on_plateau
+    factor: 0.5
+    patience: 10
+    min_lr: 1.0e-7
+  loss: mse
+
+evaluation:
+  metrics: [mae, mse, psnr, ssim, game0, game1, game2, game3]
+  primary_metric: mae
+
+experiment:
+  name: csrnet_sha_baseline
+  save_dir: ../checkpoints
+  log_dir: ../runs

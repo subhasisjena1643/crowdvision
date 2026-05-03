@@ -1,0 +1,36 @@
+# FutureFrameNet anomaly detection configuration
+model:
+  name: FutureFrameNet
+  num_input_frames: 4    # predict frame t+1 from t-3..t
+  in_channels: 1         # grayscale UCSD frames
+  base_ch: 32
+
+data:
+  dataset: ucsd
+  ped: ped2              # 'ped1' or 'ped2'
+  data_root: ../data
+  img_size: [128, 192]
+  batch_size: 32
+  num_workers: 4
+  clip_len: 5            # 4 input + 1 target
+
+training:
+  epochs: 100
+  patience: 20
+  lr: 1.0e-4
+  weight_decay: 1.0e-5
+  optimizer: adam
+  scheduler:
+    type: cosine
+    T_max: 100
+  loss: mse              # prediction error
+
+evaluation:
+  metrics: [auc, eer, ap, f1]
+  primary_metric: auc
+  lower_is_better: false
+
+experiment:
+  name: future_frame_ucsd_ped2
+  save_dir: ../checkpoints
+  log_dir: ../runs

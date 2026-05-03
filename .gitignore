@@ -1,8 +1,12 @@
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# C extensions
 *.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -16,71 +20,67 @@ parts/
 sdist/
 var/
 wheels/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual Environment
-venv/
-env/
-ENV/
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Environments
+.env
 .venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# Model Checkpoints and Weights
-models/*.pth
-models/*.pt
-models/*.onnx
-models/*.pkl
-models/checkpoints/
-*.h5
-*.weights
+# Jupyter Notebook
+.ipynb_checkpoints
 
-# Data
-data/raw/
-data/processed/
-data/datasets/
-*.csv
-*.json
-*.parquet
-
-# Experiment Tracking
-mlruns/
-wandb/
-.mlflow/
-lightning_logs/
-
-# IDE
+# IDEs and VS Code
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
+
+# macOS
 .DS_Store
 
-# Jupyter Notebooks
-.ipynb_checkpoints/
-*.ipynb
-
-# Environment Variables
-.env
-.env.local
-
-# Logs
+# CrowdVision Specific Output Directories
+checkpoints/
+experiments/
+runs/
 logs/
-*.log
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.hypothesis/
-
-# Vector Database
-chroma_db/
-*.index
-*.faiss
-
-# Temporary Files
-tmp/
-temp/
-*.tmp
+# Data sets - CRITICAL to ignore due to large size
+data/
+datasets/
+*.h5
+*.mat
+*.zip
+*.tar.gz
+*.npz

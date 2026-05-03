@@ -1,0 +1,40 @@
+# GCN-GRU baseline forecasting configuration
+model:
+  name: GCNGRU
+  num_nodes: 207          # METR-LA
+  in_features: 2          # speed + time_of_day
+  hidden_dim: 64
+  num_layers: 2
+  seq_out: 12             # 12 steps × 5min = 60 min forecast
+
+data:
+  dataset: metr_la
+  data_root: ../data
+  seq_in: 12
+  seq_out: 12
+  train_ratio: 0.7
+  val_ratio: 0.1
+  batch_size: 64
+  num_workers: 4
+
+training:
+  epochs: 200
+  patience: 30
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  optimizer: adam
+  scheduler:
+    type: reduce_on_plateau
+    factor: 0.5
+    patience: 10
+    min_lr: 1.0e-6
+  loss: huber
+
+evaluation:
+  horizons: [3, 6, 12]    # 15min, 30min, 60min
+  primary_metric: overall_mae
+
+experiment:
+  name: gcn_gru_metr_la
+  save_dir: ../checkpoints
+  log_dir: ../runs
