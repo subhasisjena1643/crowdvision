@@ -1,0 +1,110 @@
+Device: cuda
+GPU: NVIDIA A10G
+VRAM: 23.7 GB
+======================================================================
+  TRAINING ConvAE + MemAE
+======================================================================
+  Train samples: 2550
+  Test samples:  2010
+  Parameters: 3,162,977
+
+Epoch 1/100
+  [TRAIN] recon_loss=0.0672
+  [VAL  ] auc=36.2041  eer=59.2952  ap=54.4862  f1=58.1505
+  ✓ New best auc: 36.2041
+
+Epoch 2/100
+  [TRAIN] recon_loss=0.0238
+  [VAL  ] auc=42.0534  eer=54.4423  ap=58.4099  f1=58.9342
+  ✓ New best auc: 42.0534
+
+Epoch 3/100
+  [TRAIN] recon_loss=0.0207
+  [VAL  ] auc=60.7418  eer=42.5990  ap=71.5902  f1=69.7492
+  ✓ New best auc: 60.7418
+
+Epoch 4/100
+  [TRAIN] recon_loss=0.0192
+  [VAL  ] auc=56.7917  eer=45.2255  ap=66.9426  f1=67.3981
+
+Epoch 5/100
+  [TRAIN] recon_loss=0.0182
+  [VAL  ] auc=46.9610  eer=52.6947  ap=62.4668  f1=60.7367
+
+Epoch 6/100
+  [TRAIN] recon_loss=0.0174
+  [VAL  ] auc=48.6705  eer=50.6251  ap=63.1789  f1=62.5392
+
+Epoch 7/100
+  [TRAIN] recon_loss=0.0167
+  [VAL  ] auc=49.3783  eer=49.3459  ap=62.6526  f1=63.1661
+
+Epoch 8/100
+  [TRAIN] recon_loss=0.0162
+  [VAL  ] auc=53.2475  eer=50.0289  ap=67.2449  f1=63.7147
+
+Epoch 9/100
+  [TRAIN] recon_loss=0.0158
+  [VAL  ] auc=52.4866  eer=49.5895  ap=67.4061  f1=63.4013
+
+Epoch 10/100
+  [TRAIN] recon_loss=0.0154
+  [VAL  ] auc=48.8791  eer=52.6266  ap=64.5132  f1=62.7743
+
+Epoch 11/100
+  [TRAIN] recon_loss=0.0151
+  [VAL  ] auc=49.4295  eer=51.3865  ap=64.9969  f1=61.9906
+
+Epoch 12/100
+  [TRAIN] recon_loss=0.0147
+  [VAL  ] auc=50.0523  eer=51.3763  ap=65.0391  f1=63.1661
+
+Epoch 13/100
+  [TRAIN] recon_loss=0.0145
+  [VAL  ] auc=48.8273  eer=52.7134  ap=63.6876  f1=63.2445
+
+Epoch 14/100
+  [TRAIN] recon_loss=0.0142
+  [VAL  ] auc=49.0098  eer=52.4017  ap=64.3759  f1=63.2445
+
+Epoch 15/100
+  [TRAIN] recon_loss=0.0139
+  [VAL  ] auc=45.0939  eer=55.4286  ap=60.0275  f1=62.5392
+
+Epoch 16/100
+  [TRAIN] recon_loss=0.0136
+  [VAL  ] auc=47.8688  eer=54.7745  ap=62.2245  f1=62.6176
+
+Epoch 17/100
+  [TRAIN] recon_loss=0.0132
+  [VAL  ] auc=49.9197  eer=52.4801  ap=63.9668  f1=64.0282
+
+Epoch 18/100
+  [TRAIN] recon_loss=0.0129
+  [VAL  ] auc=51.1797  eer=49.1994  ap=63.7966  f1=65.4389
+
+Epoch 19/100
+  [TRAIN] recon_loss=0.0128
+  [VAL  ] auc=49.2479  eer=53.4663  ap=63.0922  f1=63.9498
+
+Epoch 20/100
+  [TRAIN] recon_loss=0.0123
+  [VAL  ] auc=49.7850  eer=53.0269  ap=62.8269  f1=64.0282
+
+Epoch 21/100
+  [TRAIN] recon_loss=0.0118
+  [VAL  ] auc=51.2458  eer=50.5076  ap=64.0291  f1=64.4201
+
+Epoch 22/100
+  [TRAIN] recon_loss=0.0115
+  [VAL  ] auc=50.8353  eer=50.5860  ap=63.0644  f1=64.2633
+
+Epoch 23/100
+  [TRAIN] recon_loss=0.0113
+  [VAL  ] auc=49.1735  eer=51.5722  ap=61.4111  f1=63.7931
+
+Epoch 24/100
+  [TRAIN] recon_loss=0.0110
+  [VAL  ] auc=52.3924  eer=49.3459  ap=64.6671  f1=65.2821
+
+Epoch 25/100

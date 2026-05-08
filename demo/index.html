@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CrowdVision AI — Event Safety Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#06080f;--bg2:#0d1117;--bg3:#161b22;--card:rgba(13,17,23,.92);--border:#21262d;--text:#e6edf3;--text2:#8b949e;--text3:#484f58;--accent:#58a6ff;--accent2:#388bfd;--green:#3fb950;--yellow:#d29922;--orange:#db6d28;--red:#f85149;--r:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{max-width:1200px;margin:0 auto;padding:20px}
+.hdr{text-align:center;padding:36px 0 20px;position:relative}
+.hdr::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:500px;height:350px;background:radial-gradient(ellipse,rgba(88,166,255,.07),transparent 70%);pointer-events:none}
+.logo{font-size:32px;font-weight:800;background:linear-gradient(135deg,#58a6ff,#a371f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--text2);font-size:13px;margin-top:4px}
+.pills{display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.pill{display:flex;align-items:center;gap:4px;padding:3px 10px;border-radius:14px;background:var(--bg3);border:1px solid var(--border);font-size:10px;color:var(--text2)}
+.d{width:6px;height:6px;border-radius:50%}.dg{background:var(--green);box-shadow:0 0 5px var(--green)}.dr{background:var(--red)}.dy{background:var(--yellow)}
+.steps{display:flex;justify-content:center;gap:4px;margin:20px 0}
+.si{width:32px;height:3px;border-radius:2px;background:var(--border);transition:.4s}.si.done{background:var(--green)}.si.act{background:var(--accent);width:50px}
+.c{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px;backdrop-filter:blur(16px)}
+.ct{font-size:18px;font-weight:700;margin-bottom:4px}.cs{color:var(--text2);font-size:12px;margin-bottom:16px}
+.sec{display:none;animation:fu .4s ease}.sec.on{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.zgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.zslot{border:2px dashed var(--border);border-radius:var(--r);padding:20px 10px;text-align:center;cursor:pointer;transition:.3s;position:relative;min-height:140px}
+.zslot:hover{border-color:var(--accent);background:rgba(88,166,255,.03)}
+.zslot input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.zslot .zn{font-weight:700;font-size:13px;margin-bottom:6px}.zslot .zi{font-size:10px;color:var(--text3)}
+.zslot img{width:100%;border-radius:8px;margin-top:6px}
+.zslot.filled{border-style:solid;border-color:var(--green)}
+.srow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.sth{width:60px;height:42px;object-fit:cover;border-radius:6px;border:2px solid var(--border);cursor:pointer;opacity:.5;transition:.2s}
+.sth:hover{border-color:var(--accent);opacity:1;transform:scale(1.05)}
+.pbar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:14px 0}
+.pbar-in{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .4s}
+.met{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:12px 0}
+.m{background:var(--bg2);border-radius:8px;padding:12px;text-align:center;border:1px solid var(--border)}
+.mv{font-size:20px;font-weight:800;margin-bottom:2px}.ml{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.rimg{width:100%;border-radius:8px;border:1px solid var(--border)}
+.rl{font-size:10px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+.zrc{padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border);transition:transform .2s}.zrc:hover{transform:scale(1.02)}
+.zrn{font-weight:700;font-size:11px;margin-bottom:3px}.zrs{font-size:18px;font-weight:800}.zrl{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;display:inline-block;margin-top:3px}
+.lc{background:rgba(248,81,73,.12);color:var(--red)}.lh{background:rgba(219,109,40,.12);color:var(--orange)}.lg{background:rgba(210,153,34,.12);color:var(--yellow)}.ll{background:rgba(63,185,80,.12);color:var(--green)}
+.rbox{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:12px;line-height:1.7;max-height:500px;overflow-y:auto}
+.rbox h1{font-size:16px;color:var(--accent);margin:14px 0 6px}.rbox h2{font-size:14px;color:var(--accent);margin:12px 0 4px}.rbox h3{font-size:12px;color:var(--text);margin:8px 0 3px}
+.dbox{margin:12px 0;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:12px}
+.cbox{max-height:280px;overflow-y:auto;padding:10px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);margin-bottom:8px}
+.cm{margin-bottom:8px;padding:7px 10px;border-radius:8px;max-width:85%;font-size:11px;line-height:1.5}
+.cu{background:var(--accent2);margin-left:auto;color:#fff;border-bottom-right-radius:2px}
+.ca{background:var(--bg3);border:1px solid var(--border);border-bottom-left-radius:2px}
+.cr{display:flex;gap:6px}
+.ci{flex:1;padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:12px;outline:none}.ci:focus{border-color:var(--accent)}
+.btn{padding:8px 16px;border-radius:8px;border:none;font-weight:600;font-size:12px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:5px}
+.bp{background:var(--accent2);color:#fff}.bp:hover{background:var(--accent)}.bp:disabled{opacity:.3;cursor:not-allowed}
+.bo{background:transparent;border:1px solid var(--border);color:var(--text2)}.bo:hover{border-color:var(--accent)}
+.dl-row{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.ztabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.zt{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:11px;font-weight:500;transition:.2s}
+.zt:hover{border-color:var(--accent)}.zt.on{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+@media(max-width:768px){.zgrid{grid-template-columns:repeat(2,1fr)}.rgrid{grid-template-columns:1fr}.met{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body><div class="app">
+<div class="hdr"><div class="logo">CrowdVision AI</div><p class="sub">Multi-Zone Event Safety Intelligence Platform</p><div class="pills" id="pills"></div></div>
+<div class="steps"><div class="si act" id="s1"></div><div class="si" id="s2"></div><div class="si" id="s3"></div></div>
+
+<!-- Step 1: Zone uploads -->
+<div class="sec on" id="sec1"><div class="c">
+  <div class="ct">📡 Camera Feed Setup</div>
+  <div class="cs">Upload one image per zone (representing each camera feed). Each zone will be analyzed for crowd density and anomalies.</div>
+  <div class="zgrid" id="zoneSlots"></div>
+  <div style="margin-top:8px"><span style="font-size:11px;color:var(--text3)">Quick-fill from samples:</span>
+    <div class="srow" id="sampRow"></div>
+  </div>
+  <div style="margin-top:16px;text-align:center">
+    <button class="btn bp" id="goBtn" onclick="startAnalysis()" disabled>🔬 Analyze All Zones</button>
+    <span style="font-size:11px;color:var(--text3);margin-left:8px" id="zCount">0/6 zones filled</span>
+  </div>
+</div></div>
+
+<!-- Step 2: Processing -->
+<div class="sec" id="sec2"><div class="c" style="text-align:center;padding:40px">
+  <div style="font-size:40px;margin-bottom:12px">🔬</div>
+  <div class="ct" style="justify-content:center">Analyzing All Zones...</div>
+  <div class="cs" id="procMsg">Initializing...</div>
+  <div class="pbar"><div class="pbar-in" id="pbar"></div></div>
+</div></div>
+
+<!-- Step 3: Results -->
+<div class="sec" id="sec3">
+  <!-- Zone detail tabs -->
+  <div class="c"><div class="ct">📊 Zone Analysis Results</div>
+    <div class="ztabs" id="zTabs"></div>
+    <div id="zDetail"></div>
+  </div>
+  <!-- Risk Matrix -->
+  <div class="c"><div class="ct">🎯 Risk Matrix</div>
+    <div class="zgrid" id="riskGrid"></div>
+  </div>
+  <!-- Dispatch -->
+  <div class="c"><div class="ct">🚨 Dispatch Decisions</div>
+    <div id="dispatchBox" class="dbox">Generating dispatch plan...</div>
+  </div>
+  <!-- Report -->
+  <div class="c"><div class="ct">🛡️ Event Safety Report</div>
+    <div class="dl-row">
+      <button class="btn bo" onclick="downloadPDF()">📄 Download PDF</button>
+      <button class="btn bo" onclick="downloadJSON()">📋 Download JSON</button>
+    </div>
+    <div class="rbox" id="reportBox">Generating report...</div>
+  </div>
+  <!-- Chat -->
+  <div class="c"><div class="ct">💬 CrowdVision AI Assistant</div>
+    <div class="cbox" id="chatBox"><div class="cm ca">I'm CrowdVision AI. I've analyzed your event zones. Ask me anything about crowd safety, specific zones, or recommendations.</div></div>
+    <div class="cr"><input class="ci" id="chatIn" placeholder="Ask about the analysis..." onkeydown="if(event.key==='Enter')sendChat()"><button class="btn bp" onclick="sendChat()">Send</button></div>
+  </div>
+  <div style="text-align:center;margin:16px 0"><button class="btn bp" onclick="restart()">🔄 New Analysis</button></div>
+</div>
+</div>
+
+<script>
+const A='',ZONES=6,ZN=i=>`Zone-${String.fromCharCode(65+i)}`;
+let zoneFiles=new Array(ZONES).fill(null),ctx={zones:[]},sessionId=Date.now().toString();
+
+document.addEventListener('DOMContentLoaded',async()=>{
+  // Build zone slots
+  const zs=document.getElementById('zoneSlots');
+  zs.innerHTML=Array.from({length:ZONES},(_,i)=>`<div class="zslot" id="zs${i}"><div class="zn">${ZN(i)}</div><div class="zi">Camera ${i+1}</div><div style="font-size:24px;margin:8px 0">📷</div><div class="zi">Click or drop image</div><input type="file" accept="image/*" onchange="zoneFile(${i},this.files[0])"></div>`).join('');
+  // Drag/drop
+  for(let i=0;i<ZONES;i++){const el=document.getElementById('zs'+i);el.ondragover=e=>{e.preventDefault();el.style.borderColor='var(--accent)'};el.ondragleave=()=>el.style.borderColor='';el.ondrop=e=>{e.preventDefault();el.style.borderColor='';if(e.dataTransfer.files[0])zoneFile(i,e.dataTransfer.files[0])}}
+  // Health
+  try{const h=await(await fetch(A+'/api/health')).json();document.getElementById('pills').innerHTML=`<div class="pill"><div class="d dg"></div>${h.device.toUpperCase()}</div><div class="pill"><div class="d ${h.openai?'dg':'dr'}"></div>AI Engine ${h.openai?'Online':'Offline'}</div><div class="pill"><div class="d ${h.density_ready?'dg':'dy'}"></div>Vision Ready</div>`}catch(e){document.getElementById('pills').innerHTML='<div class="pill"><div class="d dr"></div>Server Offline</div>'}
+  // Samples
+  try{const s=await(await fetch(A+'/api/samples')).json();const all=[...s.density,...s.anomaly_normal,...s.anomaly_abnormal];document.getElementById('sampRow').innerHTML=all.map(u=>`<img class="sth" src="${u}" onclick="fillSample('${u}')">`).join('')}catch(e){}
+});
+
+function zoneFile(i,file){
+  if(!file)return;
+  zoneFiles[i]=file;
+  const el=document.getElementById('zs'+i);
+  const url=URL.createObjectURL(file);
+  el.innerHTML=`<div class="zn">${ZN(i)}</div><img src="${url}" style="width:100%;border-radius:6px"><div class="zi" style="margin-top:4px">✅ ${file.name}</div><input type="file" accept="image/*" onchange="zoneFile(${i},this.files[0])">`;
+  el.classList.add('filled');
+  updateCount();
+}
+
+async function fillSample(url){
+  const empty=zoneFiles.findIndex(f=>f===null);
+  if(empty<0)return;
+  const r=await fetch(url);const b=await r.blob();
+  zoneFile(empty,new File([b],url.split('/').pop(),{type:b.type}));
+}
+
+function updateCount(){
+  const n=zoneFiles.filter(f=>f!==null).length;
+  document.getElementById('zCount').textContent=`${n}/${ZONES} zones filled`;
+  document.getElementById('goBtn').disabled=n===0;
+}
+
+function show(n){[1,2,3].forEach(i=>{document.getElementById('sec'+i).classList.toggle('on',i===n);const s=document.getElementById('s'+i);s.className='si'+(i<n?' done':i===n?' act':'')})}
+
+async function startAnalysis(){
+  show(2);const pb=document.getElementById('pbar'),pm=document.getElementById('procMsg');
+  ctx={zones:[],dispatch:null,report:null};
+  const filled=zoneFiles.map((f,i)=>f?{idx:i,file:f}:null).filter(Boolean);
+  const total=filled.length;
+
+  for(let j=0;j<total;j++){
+    const {idx,file}=filled[j];
+    pm.textContent=`Analyzing ${ZN(idx)} (${j+1}/${total})...`;
+    pb.style.width=`${((j)/total)*70}%`;
+    try{
+      const fd=new FormData();fd.append('file',file);fd.append('zone_name',ZN(idx));
+      const r=await(await fetch(A+'/api/analyze_zone',{method:'POST',body:fd})).json();
+      ctx.zones.push(r);
+    }catch(e){ctx.zones.push({zone:ZN(idx),error:e.message})}
+    pb.style.width=`${((j+1)/total)*70}%`;
+  }
+
+  // Dispatch + Report (PARALLEL for speed)
+  pm.textContent='Generating dispatch & safety report...';pb.style.width='80%';
+  try{
+    const fd=new FormData();fd.append('data',JSON.stringify({zones:ctx.zones}));
+    const combo=await(await fetch(A+'/api/dispatch_and_report',{method:'POST',body:fd})).json();
+    ctx.dispatch=combo.dispatch||{};ctx.report=combo.report||{};
+  }catch(e){ctx.dispatch={error:e.message};ctx.report={error:e.message}}
+
+  pb.style.width='100%';pm.textContent='Complete!';
+  setTimeout(()=>renderResults(),400);
+}
+
+function renderResults(){
+  show(3);
+  // Zone tabs
+  const tabs=document.getElementById('zTabs');
+  tabs.innerHTML=ctx.zones.map((z,i)=>`<button class="zt${i===0?' on':''}" onclick="showZone(${i},this)">${z.zone}</button>`).join('');
+  showZone(0,tabs.firstChild);
+
+  // Risk grid
+  document.getElementById('riskGrid').innerHTML=ctx.zones.map(z=>{
+    const lv=z.risk_level||'LOW',cl=lv==='CRITICAL'?'lc':lv==='HIGH'?'lh':lv==='GUARDED'?'lg':'ll';
+    return`<div class="zrc ${cl}"><div class="zrn">${z.zone}</div><div class="zrs">${((z.risk_score||0)*100).toFixed(0)}%</div><div class="zrl ${cl}">${lv}</div><div style="margin-top:4px;font-size:9px;color:var(--text3)">👥 ${Math.round(z.density_count||0)}</div></div>`;
+  }).join('');
+
+  // Dispatch
+  const dp=ctx.dispatch||{};
+  let dh='';
+  if(dp.commander_summary)dh+=`<p style="font-weight:600;margin-bottom:8px">${dp.commander_summary}</p>`;
+  if(dp.overall_threat_level)dh+=`<p style="margin-bottom:8px">Threat Level: <b style="color:${dp.overall_threat_level==='CRITICAL'?'var(--red)':dp.overall_threat_level==='HIGH'?'var(--orange)':'var(--yellow)'}">${dp.overall_threat_level}</b></p>`;
+  if(dp.deployments)dp.deployments.forEach(d=>{dh+=`<div style="padding:6px;margin:4px 0;background:var(--bg3);border-radius:6px;font-size:11px"><b>${d.zone}</b> — ${d.units||1}x ${d.unit_type||'unit'} [${d.urgency||'MEDIUM'}]<br><span style="color:var(--text2)">${d.action||''}</span></div>`});
+  if(dp.escalation_triggers)dh+=`<p style="margin-top:8px;font-size:11px;color:var(--orange)">⚡ Escalation triggers: ${dp.escalation_triggers.join(', ')}</p>`;
+  document.getElementById('dispatchBox').innerHTML=dh||'No dispatch data.';
+
+  // Report
+  const rb=document.getElementById('reportBox');
+  if(ctx.report&&ctx.report.report){rb.innerHTML=ctx.report.report.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<b>$1</b>').replace(/^# (.*)/gm,'<h1>$1</h1>').replace(/^## (.*)/gm,'<h2>$1</h2>').replace(/^### (.*)/gm,'<h3>$1</h3>')}
+  else rb.textContent=ctx.report?.error||'Report generation failed.';
+}
+
+function showZone(idx,btn){
+  document.querySelectorAll('.zt').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  const z=ctx.zones[idx]||{};const ai=z.ai_analysis||{};
+  const sc=ai.anomaly_score||0;const scC=sc>.7?'var(--red)':sc>.4?'var(--orange)':'var(--green)';
+  let h=`<div class="met">
+    <div class="m"><div class="mv" style="color:var(--accent)">${Math.round(z.density_count||0)}</div><div class="ml">People</div></div>
+    <div class="m"><div class="mv" style="color:${scC}">${(sc*100).toFixed(0)}%</div><div class="ml">Anomaly</div></div>
+    <div class="m"><div class="mv" style="font-size:14px">${ai.density_level||'—'}</div><div class="ml">Density</div></div>
+    <div class="m"><div class="mv" style="font-size:12px">${ai.anomaly_severity||'NONE'}</div><div class="ml">Severity</div></div>
+  </div>`;
+  h+=`<div class="rgrid">`;
+  if(z.original)h+=`<div><div class="rl">Camera Feed</div><img class="rimg" src="data:image/png;base64,${z.original}"></div>`;
+  if(z.overlay)h+=`<div><div class="rl">Density Overlay</div><img class="rimg" src="data:image/png;base64,${z.overlay}"></div>`;
+  else if(z.heatmap)h+=`<div><div class="rl">Density Heatmap</div><img class="rimg" src="data:image/png;base64,${z.heatmap}"></div>`;
+  h+=`</div>`;
+  if(ai.area_description)h+=`<div style="margin:8px 0;font-size:12px"><b>Area:</b> ${ai.area_description}</div>`;
+  if(ai.area_features)h+=`<div style="font-size:12px;color:var(--text2)"><b>Features:</b> ${ai.area_features}</div>`;
+  if(ai.crowd_description)h+=`<div style="font-size:12px;color:var(--text2);margin-top:4px">${ai.crowd_description}</div>`;
+  if(ai.anomaly_details)h+=`<div style="font-size:12px;margin-top:6px;padding:8px;background:var(--bg3);border-radius:6px">${ai.is_anomaly?'⚠️':'✅'} ${ai.anomaly_details}</div>`;
+  if(ai.recommended_action&&ai.recommended_action!=='none')h+=`<div style="font-size:12px;color:var(--yellow);margin-top:4px">💡 ${ai.recommended_action}</div>`;
+  if(ai.flow_pattern)h+=`<div style="font-size:11px;color:var(--text3);margin-top:4px">Flow: ${ai.flow_pattern}</div>`;
+  document.getElementById('zDetail').innerHTML=h;
+}
+
+async function downloadPDF(){
+  const fd=new FormData();fd.append('data',JSON.stringify({...ctx,report:ctx.report?.report||''}));
+  const r=await fetch(A+'/api/report/pdf',{method:'POST',body:fd});
+  const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='crowdvision_report.pdf';a.click()
+}
+async function downloadJSON(){
+  const fd=new FormData();fd.append('data',JSON.stringify(ctx));
+  const r=await fetch(A+'/api/report/json',{method:'POST',body:fd});
+  const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='crowdvision_report.json';a.click()
+}
+
+async function sendChat(){
+  const inp=document.getElementById('chatIn');const m=inp.value.trim();if(!m)return;inp.value='';
+  const cb=document.getElementById('chatBox');
+  cb.innerHTML+=`<div class="cm cu">${m}</div>`;cb.scrollTop=cb.scrollHeight;
+  const fd=new FormData();fd.append('message',m);fd.append('context',JSON.stringify(ctx));fd.append('session_id',sessionId);
+  try{const r=await(await fetch(A+'/api/chat',{method:'POST',body:fd})).json();cb.innerHTML+=`<div class="cm ca">${r.reply.replace(/\n/g,'<br>')}</div>`}catch(e){cb.innerHTML+=`<div class="cm ca" style="color:var(--red)">Error: ${e.message}</div>`}
+  cb.scrollTop=cb.scrollHeight;
+}
+
+function restart(){ctx={zones:[]};zoneFiles=new Array(ZONES).fill(null);sessionId=Date.now().toString();show(1);
+  const zs=document.getElementById('zoneSlots');
+  zs.innerHTML=Array.from({length:ZONES},(_,i)=>`<div class="zslot" id="zs${i}"><div class="zn">${ZN(i)}</div><div class="zi">Camera ${i+1}</div><div style="font-size:24px;margin:8px 0">📷</div><div class="zi">Click or drop image</div><input type="file" accept="image/*" onchange="zoneFile(${i},this.files[0])"></div>`).join('');
+  for(let i=0;i<ZONES;i++){const el=document.getElementById('zs'+i);el.ondragover=e=>{e.preventDefault();el.style.borderColor='var(--accent)'};el.ondragleave=()=>el.style.borderColor='';el.ondrop=e=>{e.preventDefault();el.style.borderColor='';if(e.dataTransfer.files[0])zoneFile(i,e.dataTransfer.files[0])}}
+  updateCount();
+}
+</script></body></html>

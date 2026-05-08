@@ -1,0 +1,36 @@
+nohup: ignoring input
+INFO:     Started server process [705540]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:45902 - "GET / HTTP/1.1" 200 OK
+INFO:     203.192.204.123:30173 - "GET / HTTP/1.1" 200 OK
+INFO:     203.192.204.123:30173 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     203.192.204.123:5129 - "GET /static/app.js HTTP/1.1" 200 OK
+  ✓ Density (AdaptiveCSRNet) loaded
+  ✓ Anomaly (ConvAE + MemAE) loaded
+  [SKIP] Forecasting: no adjacency matrix
+CrowdVisionPipeline initialized on cuda
+  Active models: ['density', 'anomaly']
+INFO:     203.192.204.123:30173 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     203.192.204.123:5129 - "GET /api/samples HTTP/1.1" 200 OK
+INFO:     203.192.204.123:33615 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     203.192.204.123:5129 - "GET /static/density_crowd_1.jpg HTTP/1.1" 200 OK
+INFO:     203.192.204.123:30173 - "GET /static/density_crowd_3.jpg HTTP/1.1" 200 OK
+INFO:     203.192.204.123:33615 - "GET /static/density_crowd_2.jpg HTTP/1.1" 200 OK
+INFO:     203.192.204.123:41733 - "GET /static/density_crowd_4.jpg HTTP/1.1" 200 OK
+INFO:     203.192.204.123:62540 - "GET /static/anomaly_normal_2.png HTTP/1.1" 200 OK
+INFO:     203.192.204.123:64532 - "GET /static/anomaly_normal_1.png HTTP/1.1" 200 OK
+INFO:     203.192.204.123:64532 - "GET /static/anomaly_normal_3.png HTTP/1.1" 200 OK
+INFO:     203.192.204.123:41733 - "GET /static/anomaly_abnormal_1.png HTTP/1.1" 200 OK
+INFO:     203.192.204.123:62540 - "GET /static/anomaly_abnormal_3.png HTTP/1.1" 200 OK
+INFO:     203.192.204.123:30173 - "GET /static/anomaly_abnormal_2.png HTTP/1.1" 200 OK
+INFO:     203.192.204.123:53921 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     203.192.204.123:10958 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     203.192.204.123:48540 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     203.192.204.123:26523 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     203.192.204.123:12800 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     203.192.204.123:41940 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     203.192.204.123:56561 - "POST /api/dispatch_and_report HTTP/1.1" 400 Bad Request
+INFO:     203.192.204.123:9444 - "POST /api/report/pdf HTTP/1.1" 400 Bad Request
+INFO:     203.192.204.123:56561 - "POST /api/report/pdf HTTP/1.1" 400 Bad Request

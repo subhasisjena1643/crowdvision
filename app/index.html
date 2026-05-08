@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CrowdVision — Crowd Intelligence Platform</title>
+<meta name="description" content="AI-powered multi-zone crowd safety intelligence with hybrid anomaly detection">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.1/font/lucide.min.css">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<!-- Ambient background -->
+<div class="ambient"></div>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+    <div class="brand-text">
+      <span class="brand-name">CrowdVision</span>
+      <span class="brand-tag">v4.0 Intelligence</span>
+    </div>
+  </div>
+  <div class="nav-section">
+    <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" data-page="analyze" onclick="showPage('analyze',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span>Zone Analysis</span>
+    </button>
+    <button class="nav-item" data-page="results" onclick="showPage('results',this)" id="navResults" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+      <span>Results</span>
+    </button>
+    <button class="nav-item" data-page="dispatch" onclick="showPage('dispatch',this)" id="navDispatch" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Dispatch</span>
+    </button>
+  </div>
+  <div class="nav-bottom">
+    <div class="system-status" id="sysStatus">
+      <div class="status-dot offline"></div>
+      <span>Connecting...</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main" id="main">
+
+  <!-- DASHBOARD PAGE -->
+  <div class="page active" id="page-dashboard">
+    <div class="page-header">
+      <h1>Command Center</h1>
+      <p class="page-sub">Real-time crowd intelligence overview</p>
+    </div>
+    <div class="stat-grid" id="dashStats">
+      <div class="stat-card">
+        <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="stat-value" id="dTotalPeople">—</div>
+        <div class="stat-label">Total People</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon emerald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="stat-value" id="dThreatLevel">—</div>
+        <div class="stat-label">Threat Level</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="stat-value" id="dLatency">—</div>
+        <div class="stat-label">Avg Latency</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="stat-value" id="dZones">0</div>
+        <div class="stat-label">Active Zones</div>
+      </div>
+    </div>
+    <div class="card glass">
+      <div class="card-header"><h2>System Status</h2></div>
+      <div class="model-grid" id="modelGrid">Loading models...</div>
+    </div>
+  </div>
+
+  <!-- ANALYZE PAGE -->
+  <div class="page" id="page-analyze">
+    <div class="page-header">
+      <h1>Zone Analysis</h1>
+      <p class="page-sub">Upload camera feeds for each zone — hybrid ML + AI analysis</p>
+    </div>
+    <div class="card glass">
+      <div class="card-header">
+        <h2>Camera Feeds</h2>
+        <span class="badge" id="zoneCount">0 / 6</span>
+      </div>
+      <div class="zone-grid" id="zoneGrid"></div>
+      <div class="sample-section">
+        <span class="sample-label">Quick fill from samples:</span>
+        <div class="sample-row" id="sampleRow"></div>
+      </div>
+      <div class="action-bar">
+        <button class="btn-primary" id="analyzeBtn" onclick="startAnalysis()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Analyze All Zones
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESSING OVERLAY -->
+  <div class="processing-overlay" id="procOverlay" style="display:none">
+    <div class="proc-card glass">
+      <div class="proc-spinner"></div>
+      <h2 id="procTitle">Analyzing Zones...</h2>
+      <p id="procMsg">Initializing hybrid pipeline</p>
+      <div class="proc-bar"><div class="proc-fill" id="procFill"></div></div>
+      <div class="proc-detail" id="procDetail">Advanced Semantic & Behavioral Analysis</div>
+    </div>
+  </div>
+
+  <!-- RESULTS PAGE -->
+  <div class="page" id="page-results">
+    <div class="page-header">
+      <h1>Analysis Results</h1>
+      <p class="page-sub">Hybrid ML + AI anomaly detection across all zones</p>
+    </div>
+    <div class="zone-tabs" id="zoneTabs"></div>
+    <div id="zoneDetail"></div>
+    <div class="card glass" style="margin-top:16px">
+      <div class="card-header"><h2>Risk Matrix</h2></div>
+      <div class="risk-grid" id="riskGrid"></div>
+    </div>
+  </div>
+
+  <!-- DISPATCH PAGE -->
+  <div class="page" id="page-dispatch">
+    <div class="page-header">
+      <h1>Dispatch & Report</h1>
+      <p class="page-sub">AI-generated deployment decisions and safety report</p>
+    </div>
+    <div class="card glass">
+      <div class="card-header"><h2>Dispatch Decisions</h2></div>
+      <div id="dispatchContent" class="dispatch-box">Awaiting analysis...</div>
+    </div>
+    <div class="card glass">
+      <div class="card-header">
+        <h2>Safety Report</h2>
+        <div class="btn-group">
+          <button class="btn-outline" onclick="downloadPDF()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF</button>
+          <button class="btn-outline" onclick="downloadJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> JSON</button>
+        </div>
+      </div>
+      <div class="report-content" id="reportContent">Awaiting analysis...</div>
+    </div>
+    <div class="card glass">
+      <div class="card-header"><h2>AI Assistant</h2></div>
+      <div class="chat-messages" id="chatBox">
+        <div class="chat-msg assistant">Ready to assist with crowd safety analysis. Run a zone analysis first, then ask me anything.</div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" placeholder="Ask about the analysis..." onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="btn-primary btn-sm" onclick="sendChat()">Send</button>
+      </div>
+    </div>
+    <div class="action-bar" style="justify-content:center">
+      <button class="btn-outline" onclick="resetApp()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        New Analysis
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
